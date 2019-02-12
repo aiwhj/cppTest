@@ -32,7 +32,6 @@ ZEND_DECLARE_MODULE_GLOBALS(cppTest)
 */
 
 /* True global resources - no need for thread safety here */
-static int le_cppTest;
 
 /* {{{ PHP_INI
  */
@@ -53,17 +52,8 @@ PHP_INI_END()
    Return a string to confirm that the module is compiled in */
 PHP_FUNCTION(confirm_cppTest_compiled)
 {
-	char *arg = NULL;
-	size_t arg_len, len;
-	zend_string *strg;
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS(), "s", &arg, &arg_len) == FAILURE) {
-		return;
-	}
-
-	strg = strpprintf(0, "Congratulations! You have successfully modified ext/%.78s/config.m4. Module %.78s is now compiled into PHP.", "cppTest", arg);
-
-	RETURN_STR(strg);
+	printf("test");
+	RETURN_TRUE;
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and
