@@ -34,9 +34,11 @@ extern zend_module_entry cppTest_module_entry;
 #	define PHP_CPPTEST_API
 #endif
 
+extern "C" {
 #ifdef ZTS
 #include "TSRM.h"
 #endif
+}
 
 /*
   	Declare any global variables you may need between the BEGIN
@@ -52,10 +54,10 @@ ZEND_END_MODULE_GLOBALS(cppTest)
    You are encouraged to rename these macros something shorter, see
    examples in any other php module directory.
 */
-#define CPPTEST_G(v) ZEND_MODULE_GLOBALS_ACCESSOR(cppTest, v)
-
-#if defined(ZTS) && defined(COMPILE_DL_CPPTEST)
-ZEND_TSRMLS_CACHE_EXTERN()
+#ifdef ZTS
+#define CPPTEST_G(v) TSRMG(cppTest_globals_id, zend_cppTest_globals *, v)
+#else
+#define CPPTEST_G(v) (cppTest_globals.v)
 #endif
 
 #endif	/* PHP_CPPTEST_H */

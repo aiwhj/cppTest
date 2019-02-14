@@ -17,16 +17,17 @@
 */
 
 /* $Id$ */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
+extern "C" {
 #include "php.h"
 #include "php_ini.h"
 #include "ext/standard/info.h"
-#include "php_cppTest.h"
+}
 
+#include "php_cppTest.h"
 /* If you declare any globals in php_cppTest.h uncomment this:
 ZEND_DECLARE_MODULE_GLOBALS(cppTest)
 */
@@ -52,7 +53,7 @@ PHP_INI_END()
    Return a string to confirm that the module is compiled in */
 PHP_FUNCTION(confirm_cppTest_compiled)
 {
-	printf("test");
+	printf("test\n");
 	RETURN_TRUE;
 }
 /* }}} */
@@ -101,9 +102,6 @@ PHP_MSHUTDOWN_FUNCTION(cppTest)
  */
 PHP_RINIT_FUNCTION(cppTest)
 {
-#if defined(COMPILE_DL_CPPTEST) && defined(ZTS)
-	ZEND_TSRMLS_CACHE_UPDATE();
-#endif
 	return SUCCESS;
 }
 /* }}} */
@@ -158,10 +156,9 @@ zend_module_entry cppTest_module_entry = {
 /* }}} */
 
 #ifdef COMPILE_DL_CPPTEST
-#ifdef ZTS
-ZEND_TSRMLS_CACHE_DEFINE()
-#endif
+BEGIN_EXTERN_C()
 ZEND_GET_MODULE(cppTest)
+END_EXTERN_C()
 #endif
 
 /*

@@ -59,9 +59,9 @@ if test "$PHP_CPPTEST" != "no"; then
   dnl
   dnl PHP_SUBST(CPPTEST_SHARED_LIBADD)
   PHP_REQUIRE_CXX()
-  PHP_SUBST(SEASCLICK_SHARED_LIBADD)
-  PHP_ADD_LIBRARY(stdc++, 1, SEASCLICK_SHARED_LIBADD)
+  PHP_SUBST(CPPTEST_SHARED_LIBADD)
+  PHP_ADD_LIBRARY(stdc++, 1, CPPTEST_SHARED_LIBADD)
   CXXFLAGS="$CXXFLAGS -Wall -Wno-unused-function -Wno-deprecated -Wno-deprecated-declarations -std=c++11"
 
-  PHP_NEW_EXTENSION(cppTest, cppTest.c, $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
+  PHP_NEW_EXTENSION(cppTest, cppTest.cpp, $ext_shared,, -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1)
 fi
